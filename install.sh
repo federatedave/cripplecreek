@@ -6,7 +6,7 @@
 # Originally by Attribution
 
 echo -e '# ## ## ## ## ## ## ## ## ## ## ## ## #'
-echo -e '#          Federated This VM          #'
+echo -e '#       Federate This Machine         #'
 echo -e '# ## ## ## ## ## ## ## ## ## ## ## ## #'
 
 echo -e
@@ -47,8 +47,8 @@ done
 if [[ -n $HELP ]]; then
   echo -e
   echo -e "Usage: ./setup.sh [-mh]"
-  echo -e "       curl -sL github.com/federatedave/machines/setup.sh | sudo bash"
-  echo -e "       curl -sL github.com/federatedave/machines/setup.sh | sudo bash -s --{ah}"
+  echo -e "       curl -sL github.com/federatedave/cripplecreek/setup.sh | sudo bash"
+  echo -e "       curl -sL github.com/federatedave/cripplecreek/setup.sh | sudo bash -s --{ah}"
   echo -e
   echo -e "Flags:"
   echo -e "       -a : run setup script automatically"
@@ -64,11 +64,9 @@ fi
 init
 
 echo -e 'Updating system...'
-if [[ "$RELEASE" == "centos" ]]; then
-  yum -y -q update
-else
-  apt-get update -y -qq && apt-get upgrade -y -qq
-fi
+
+apt-get update -y -qq && apt-get upgrade -y -qq
+
 
 echo -e
 DISABLE_ROOT="N"
@@ -77,7 +75,7 @@ INSTALL_BASIC_PACKAGES="Y"
 INSTALL_DOCKER="Y"
 INSTALL_DOCKER_COMPOSE="Y"
 TIMEZONE="America/Denver"
-USERNAME="$(echo $SUDO_USER)"
+USERNAME="federated"
 ADD_NEW_USER="Y"
 INSTALL_ZSH="Y"
 if [ -z "$AUTO" ]; then
@@ -95,12 +93,10 @@ fi
 if [[ "$INSTALL_BASIC_PACKAGES" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   # Install basic packages
   echo -e
-  echo -e 'Installing Basic Packages: sudo ufw fail2ban htop curl apache2 tmux git certbot python3-certbot-dns-cloudflare autojump'
-  if [[ "$RELEASE" == "centos" ]]; then
-    yum -y -q install sudo ufw fail2ban htop curl apache2 tmux git certbot python3-certbot-dns-cloudflare autojump
-  else
-    apt-get -y -qq install sudo ufw fail2ban htop curl apache2 tmux git certbot python3-certbot-dns-cloudflare autojump
-  fi
+  echo -e 'Installing Basic Packages: sudo ufw fail2ban htop curl apache2 git certbot python3-certbot-dns-cloudflare autojump'
+
+apt-get -y -qq install sudo ufw fail2ban htop curl apache2 tmux git certbot python3-certbot-dns-cloudflare autojump
+
 fi
 
 if [[ "$ADD_NEW_USER" =~ ^([yY][eE][sS]|[yY])$ ]]; then
