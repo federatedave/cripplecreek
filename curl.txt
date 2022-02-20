@@ -1,0 +1,16 @@
+Curl Commands for the API
+
+Creat machine:
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer a33c0a36dba86aa5744c19b8eaed5dcb7fb0eceff9b132ca5cfed1a203f9559f" \
+  -d '{"name":"test4","region":"nyc3","size":"s-1vcpu-1gb","image":"ubuntu-20-04-x64","ssh_keys":[31208884],"backups":true,"ipv6":true,"user_data":null,"private_networking":null,"volumes": null,"tags":["applications"]}' \
+  "https://api.digitalocean.com/v2/droplets"
+
+  List ssh_keys
+
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer a33c0a36dba86aa5744c19b8eaed5dcb7fb0eceff9b132ca5cfed1a203f9559f" \
+  "https://api.digitalocean.com/v2/account/keys"
