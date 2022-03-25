@@ -14,3 +14,7 @@ curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer a33c0a36dba86aa5744c19b8eaed5dcb7fb0eceff9b132ca5cfed1a203f9559f" \
   "https://api.digitalocean.com/v2/account/keys"
+
+  Algo token:
+
+  739efa1077a5067c7eeb23a62d3ace4a1c53e3ccdf4954a002d3b2a20f76951f
