@@ -3,10 +3,8 @@
 # Machine Setup Script by Federated Computer, Inc.
 # Initial February, 2022
 
-# Originally by Attribution
-
 echo -e '# ## ## ## ## ## ## ## ## ## ## ## ## #'
-echo -e '#       Federate This Machine         #'
+echo -e '#    Let's Federate This Machine      #'
 echo -e '# ## ## ## ## ## ## ## ## ## ## ## ## #'
 
 echo -e
@@ -69,8 +67,8 @@ apt-get update -y -qq && apt-get upgrade -y -qq
 
 
 echo -e
-DISABLE_ROOT="N"
-DISABLE_PASSWORD_AUTH="N"
+DISABLE_ROOT="Y"
+DISABLE_PASSWORD_AUTH="Y"
 INSTALL_BASIC_PACKAGES="Y"
 INSTALL_DOCKER="Y"
 INSTALL_DOCKER_COMPOSE="Y"
@@ -173,7 +171,7 @@ fi
 if [[ "$INSTALL_DOCKER_COMPOSE" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   echo -e
   if [[ -z "$(command -v docker-compose)" ]]; then
-    curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    curl -L "https://github.com/docker/compose/releases/download/v2.3.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
   fi
   echo -e "Docker Compose Installed."
