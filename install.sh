@@ -1,7 +1,6 @@
-#!/bin/bash
+!/bin/bash
 
 # Machine Setup Script by Federated Computer, Inc.
-# Initial February, 2022
 
 echo -e '# ## ## ## ## ## ## ## ## ## ## ## ## #'
 echo -e '#    Let's Federate This Machine      #'
