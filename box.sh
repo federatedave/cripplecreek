@@ -46,28 +46,21 @@ TIMEZONE="America/Denver"
 USERNAME="federated"
 PASSWORD="federated"
 ADD_NEW_USER="Y"
+SSHKEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHnH7VtPVFxqreal5KQT3nQYWoC/kC0k0lTUHLOJBd+0NZO8q0b61eaQF+xxUAM6j0zlosmShk6JaBHeCtV6VMn0YIPKc53UehI/yEwALBx0XvCXWqsEY8jZnSAaXsHKBE+aP3/MiO0rT8w9UcqEfGj9XtU6vbrFRSGlCxK/sIyACLdgDZ2PAmbhTUJ3KUiSJlt9Zntuc36j2Jw3jBSQ/AldnuE36+jiWS32DnSv9S1kt4BeacZy+mqbJz+m4s9Emmakudwd3aBqfajENQrKJO4vJxHJBtQqW0HF7OlTq2n+3MmLNpZ3nMASecc56bbZj7Kw45OlrVSLkiuDWYaJ5+zPma1i/Z1NPN9qOlLYrgeRn4bUPZNhMn2KbF2AVMViVYC28OPUMKlBSA4dIeCT6cK6WLF0HT7VsrUuWeUSA31d/kyFpvlz60F2YuTUY5vqHY8+7gK/pxSKl3Zd6nXiOvsZ+SQcHZ0AZit5jRVfAFvWO7t7jLuddgDmPujyGGGmk= david@jupiter"
 
 apt-get -y -qq install sudo ufw fail2ban htop curl
 
 adduser --disabled-password --gecos "" $USERNAME
 usermod -aG sudo $USERNAME
 
-echo "$USERNAME:$password" | sudo chpasswd
+echo "$USERNAME:$PASSWORD" | sudo chpasswd
 
-  echo -e
-  echo -e 'Adding SSH Keys'
-  while true; do
-    read < /dev/tty -rp 'Enter SSH Key [Paste in key, or enter to skip or finish adding keys]: ' sshKey
-    if [[ -z "$sshKey" ]]; then
-      break
-    fi
-    if [[ ! -d '/home/$USERNAME/.ssh' ]]; then
-      mkdir -p /home/$USERNAME/.ssh
-    fi
-    touch /home/$USERNAME/.ssh/authorized_keys
-    echo -e "$sshKey" >>/home/$USERNAME/.ssh/authorized_keys
-    echo -e 'Saved SSH Key\n'
-  done
+echo -e
+echo -e 'Adding Federated Key'
+mkdir -p /home/$USERNAME/.ssh
+touch /home/$USERNAME/.ssh/authorized_keys
+echo -e "$SSHKEY" >>/home/$USERNAME/.ssh/authorized_keys
+echo -e 'Saved Federated Key\n'
 
 echo -e
 echo -e 'Disabling Root Login...'
@@ -87,5 +80,14 @@ timedatectl set-timezone $TIMEZONE
 unset LC_ALL
 
 echo -e
-echo -e 'Finished initial machine setup script.'
+echo -e 'Finished box machine setup script. That was easy.'
+
+echo -e
+echo -e 'Setting up MIAB'
+
+curl -s https://mailinabox.email/setup.sh | sudo bash
+
+echo -e
+echo -e 'Done.'
+
 exit 0
